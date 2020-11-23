@@ -1,4 +1,3 @@
-// ==UserScript==
 (function(outer_result){
   var pseudoCands = [1, 0.666666, 0.6, 0.55, 0.5, 0.45, 0.4, 0.333333].reduce((a,c)=>{a['C'+(c*100).toString().split('.')[0]] = c; return a;},{});
   function prep_scales(obj, prop){
@@ -248,43 +247,3 @@
     });
   }
 })();
-
-  function make_diffs(props){
-    var simple= {};
-    var weighted = {};
-    var weighted2 = {};
-    for (var c in props){
-      simple[c] = {avg:0};
-      weighted[c] = {avg:0};
-      weighted2[c] = {avg:0};
-      var num = 0;
-      for (var i in props[c]) {
-        simple[c][i] = Math.abs(props[c][i]-props_theoretical[i]);
-        simple[c].avg += simple[c][i];
-        weighted[c][i] = simple[c][i]/props_theoretical[i];
-        weighted[c].avg += weighted[c][i];
-        weighted2[c][i] = weighted[c][i]*props_theoretical.ex;
-        weighted2[c].avg += weighted[c][i];
-        num++;
-      }
-      simple[c].avg /= num;
-      weighted[c].avg /= num;
-      weighted2[c].avg /= num;
-    }
-    return {simple, weighted};
-  }
-
-(function(){
-  var sigmas = {};
-  for (var s in obj.res.states) {
-    sigmas[s] = {};  for (var c in obj.res.states[s].diffs.theory.simple) {
-      var simple = obj.res.states[s].diffs.theory.simple;
-      sigmas[s][c] = (simple[c].avg - simple['C100'].STATS.Log.ex)/simple['C100'].STATS.Log.sigma;  }}1.4394550264380106
-})();
-
-  //  var counties = JSON.parse(document.body.textContent);
-  //  var div = document.createElement('div');
-  //  div.innerHTML = '<div>'+JSON.stringify(result)+'</div><div>'+JSON.stringify(props)+'</div>';
-  //  document.body.insertBefore(div, document.body.firstChild)
-
-
